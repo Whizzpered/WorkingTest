@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Work</string>
+    <string name="eng_text">This text is too awesome for one line! We\'re trying to do good quality product here</string>
+    <string name="rus_text">Проверка русского языка. Съешьте сладких французских булочек да выпейте подслащённого английского чаю</string>
+</resources>

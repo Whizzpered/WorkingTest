@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/groupButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp">
+
+        <ImageButton
+            android:id="@+id/boldButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:onClick="boldButtonPressed"
+            android:src="@drawable/ic_format_b_icon" />
+
+        <ImageButton
+            android:id="@+id/italicButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:onClick="italicButtonPressed"
+            android:src="@drawable/ic_format_i_icon" />
+
+        <ImageButton
+            android:id="@+id/decreaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:onClick="decreaseButtonPressed"
+            android:src="@drawable/ic_format_decrease_icon" />
+
+        <TextView
+            android:id="@+id/font_size_indicator"
+            android:layout_width="50dp"
+            android:layout_height="60dp"
+            android:gravity="center"
+            android:textColor="@color/original"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/increaseButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:onClick="increaseButtonPressed"
+            android:src="@drawable/ic_format_increase_icon" />
+    </LinearLayout>
+
+    <com.example.work.TextViewer
+        android:id="@+id/textviewer"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="-60dp" 
+        android:layout_weight="1"
+        android:background="@drawable/textviewer_back"
+        app:tv_content="@string/rus_text"
+        />
+
+
+</LinearLayout>
