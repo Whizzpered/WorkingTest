@@ -1,22 +1,30 @@
 package com.example.work;
 
-public class TextModel {
+import java.util.ArrayList;
+
+public class TextModel implements Observable {
 
     private String content;
     private boolean bold, italic;
     private int textSize;
-
+    ArrayList<Observer> observers = new ArrayList<>();
 
     public TextModel(){
+
+    }
+
+    public void initialize(){
         content = "%s";
         bold = false;
         italic = false;
         textSize = 20;
+        update();
     }
 
     public void setTextSize(int size){
         if(size > 0){
             textSize = size;
+            update();
         }
     }
 
@@ -26,10 +34,12 @@ public class TextModel {
 
     public void setBold(){
         bold = !bold;
+        update();
     }
 
     public void setItalic(){
         italic = !italic;
+        update();
     }
 
     public boolean isBold(){
@@ -42,9 +52,27 @@ public class TextModel {
 
     public void setContent(String s){
         content = s;
+        update();
     }
 
     public String getContent(){
         return content;
+    }
+
+    @Override
+    public void addObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer) {
+        observers.remove(observer);
+    }
+
+    @Override
+    public void update() {
+        for(Observer obs : observers){
+            obs.update(this);
+        }
     }
 }

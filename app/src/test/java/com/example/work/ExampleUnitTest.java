@@ -14,11 +14,4 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
-
-    @Test
-    public void formating_isBold_Correct(){
-        TextViewer tv = new TextViewer(null, null);
-        tv.setTextSize(200);
-        System.out.println(tv.getTextSize());
-    }
 }

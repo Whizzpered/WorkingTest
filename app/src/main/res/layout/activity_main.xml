@@ -11,60 +11,55 @@
         android:id="@+id/groupButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:layout_gravity="center"
+        android:background="@color/white"
         android:orientation="horizontal"
-        android:paddingLeft="60dp"
-        android:paddingRight="60dp">
+        >
 
-        <ImageButton
+        <com.example.work.button.SwitchBoldButton
             android:id="@+id/boldButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            android:onClick="boldButtonPressed"
+            android:background="@color/white"
             android:src="@drawable/ic_format_b_icon" />
 
-        <ImageButton
+        <com.example.work.button.SwitchItalicButton
             android:id="@+id/italicButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            android:onClick="italicButtonPressed"
+            android:background="@color/white"
             android:src="@drawable/ic_format_i_icon" />
 
-        <ImageButton
+        <com.example.work.button.DecreaseSizeButton
             android:id="@+id/decreaseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            android:onClick="decreaseButtonPressed"
+            android:background="@color/white"
             android:src="@drawable/ic_format_decrease_icon" />
 
-        <TextView
+        <com.example.work.view.CustomTextView
             android:id="@+id/font_size_indicator"
-            android:layout_width="50dp"
+            android:layout_width="60dp"
             android:layout_height="60dp"
             android:gravity="center"
             android:textColor="@color/original"
             android:textSize="30sp" />
 
-        <ImageButton
+        <com.example.work.button.IncreaseSizeButton
             android:id="@+id/increaseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#fff"
-            android:onClick="increaseButtonPressed"
+            android:background="@color/white"
             android:src="@drawable/ic_format_increase_icon" />
+
     </LinearLayout>
 
     <com.example.work.TextViewer
         android:id="@+id/textviewer"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="-60dp" 
         android:layout_weight="1"
         android:background="@drawable/textviewer_back"
-        app:tv_content="@string/rus_text"
         />
 
 

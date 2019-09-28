@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.text.Layout;
 import android.text.StaticLayout;
 import android.text.TextPaint;
@@ -13,15 +14,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.OverScroller;
 
+import androidx.annotation.RequiresApi;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 
-public class TextViewer extends View {
+public class TextViewer extends View implements Observer {
 
-    public enum FormatType {
-        BOLD, ITALIC
-    }
-
-    private TextModel textModel;
     private TextPaint mTextPaint;
     private StaticLayout mStaticLayout;
 
@@ -30,39 +27,51 @@ public class TextViewer extends View {
     private final GestureDetector mGestureDetector =
             new GestureDetector(getContext(), customGestureDetector);
 
-    public TextViewer(Context context) {
-        super(context);
-    }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public TextViewer(Context context, AttributeSet attrs) {
         super(context, attrs);
-        textModel = new TextModel();
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.TextViewer);
-        textModel.setContent(attributes.getString(R.styleable.TextViewer_tv_content));
         attributes.recycle();
         initLabelView();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public TextViewer(Context context) {
+        super(context);
+        newInit();
     }
 
     private void initLabelView() {
         mTextPaint = new TextPaint();
         mTextPaint.setAntiAlias(true);
-        int textSize = textModel.getTextSize();
 
-        mTextPaint.setTextSize(textSize * getResources().getDisplayMetrics().density);
-        mTextPaint.setColor(0xFF000000);
+        mTextPaint.setTextSize(20f * getResources().getDisplayMetrics().density);
+        mTextPaint.setColor(getResources().getColor(R.color.black));
 
-        String text = textModel.getContent();
+        String text = getResources().getString(R.string.rus_text);
         int width = (int) mTextPaint.measureText(text);
         mStaticLayout = new StaticLayout(text, mTextPaint, width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0, false);
 
         mScroller = new OverScroller(getContext(), new FastOutLinearInInterpolator());
-        // for a New API (>23)
-        //
-        // StaticLayout.Builder builder = StaticLayout.Builder.obtain(content, 0, content.length(), mTextPaint, width)
-        //        .setAlignment(Layout.Alignment.ALIGN_NORMAL)
-        //        .setLineSpacing(1, 0) // multiplier, add
-        //        .setIncludePad(false);
-        // mStaticLayout = builder.build();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    public void newInit() {
+        mTextPaint = new TextPaint();
+        mTextPaint.setAntiAlias(true);
+
+        mTextPaint.setTextSize(20f * getResources().getDisplayMetrics().density);
+        mTextPaint.setColor(getResources().getColor(R.color.black));
+
+        String text = getResources().getString(R.string.rus_text);
+        int width = (int) mTextPaint.measureText(text);
+        StaticLayout.Builder builder = StaticLayout.Builder.obtain(text, 0, text.length(), mTextPaint, width)
+                .setAlignment(Layout.Alignment.ALIGN_NORMAL)
+                .setLineSpacing(1, 0)
+                .setIncludePad(false);
+        mStaticLayout = builder.build();
+        mScroller = new OverScroller(getContext(), new FastOutLinearInInterpolator());
     }
 
     @Override
@@ -77,7 +86,7 @@ public class TextViewer extends View {
             if (widthMode == MeasureSpec.AT_MOST) {
                 if (width > widthRequirement) {
                     width = widthRequirement;
-                    String text = textModel.getContent();
+                    String text = getResources().getString(R.string.rus_text);
                     mStaticLayout = new StaticLayout(text, mTextPaint, width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0, false);
                 }
             }
@@ -91,16 +100,14 @@ public class TextViewer extends View {
         } else {
             height = mStaticLayout.getHeight() + getPaddingTop() + getPaddingBottom();
             if (heightMode == MeasureSpec.AT_MOST) {
-                //height = Math.min(height, heightRequirement);
                 height = heightRequirement;
             }
         }
-
         setMeasuredDimension(width, height);
     }
 
-    public void setText(String text) {
-        textModel.setContent(text);
+    public void setText(TextModel textModel) {
+        String text = textModel.getContent();
         int width = (int) mTextPaint.measureText(text);
         mStaticLayout = new StaticLayout(text, mTextPaint, width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0, false);
     }
@@ -125,15 +132,7 @@ public class TextViewer extends View {
         }
     }
 
-    public void setFormating(FormatType input) {
-        switch (input) {
-            case BOLD:
-                textModel.setBold();
-                break;
-            case ITALIC:
-                textModel.setItalic();
-        }
-
+    public void setFormating(TextModel textModel) {
         boolean isBold = textModel.isBold();
         boolean isItalic = textModel.isItalic();
 
@@ -155,25 +154,11 @@ public class TextViewer extends View {
         invalidate();
     }
 
-    public void setTextSize(int size) {
-        int width = getWidth();
-        String text = textModel.getContent();
+    public void setTextSize(TextModel textModel) {
+        int size = textModel.getTextSize();
         mTextPaint.setTextSize(size * getResources().getDisplayMetrics().density);
-        mStaticLayout = new StaticLayout(text, mTextPaint, width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0, false);
-        textModel.setTextSize(size);
+        mStaticLayout.getPaint().setTextSize(size * getResources().getDisplayMetrics().density);
         invalidate();
-    }
-
-    public boolean isBold() {
-        return textModel.isBold();
-    }
-
-    public boolean isItalic() {
-        return textModel.isItalic();
-    }
-
-    public int getTextSize() {
-        return textModel.getTextSize();
     }
 
     public StaticLayout getStaticLayout() {
@@ -184,4 +169,10 @@ public class TextViewer extends View {
         return mScroller;
     }
 
+    @Override
+    public void update(TextModel model) {
+        setText(model);
+        setTextSize(model);
+        setFormating(model);
+    }
 }
