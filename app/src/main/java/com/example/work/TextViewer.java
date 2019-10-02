@@ -21,6 +21,7 @@ public class TextViewer extends View implements Observer {
 
     private TextPaint mTextPaint;
     private StaticLayout mStaticLayout;
+    int width;
 
     private OverScroller mScroller;
     CustomGestureDetector customGestureDetector = new CustomGestureDetector(this);
@@ -50,7 +51,7 @@ public class TextViewer extends View implements Observer {
         mTextPaint.setColor(getResources().getColor(R.color.black));
 
         String text = getResources().getString(R.string.rus_text);
-        int width = (int) mTextPaint.measureText(text);
+        width = (int) mTextPaint.measureText(text);
         mStaticLayout = new StaticLayout(text, mTextPaint, width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0, false);
 
         mScroller = new OverScroller(getContext(), new FastOutLinearInInterpolator());
@@ -65,7 +66,7 @@ public class TextViewer extends View implements Observer {
         mTextPaint.setColor(getResources().getColor(R.color.black));
 
         String text = getResources().getString(R.string.rus_text);
-        int width = (int) mTextPaint.measureText(text);
+        width = (int) mTextPaint.measureText(text);
         StaticLayout.Builder builder = StaticLayout.Builder.obtain(text, 0, text.length(), mTextPaint, width)
                 .setAlignment(Layout.Alignment.ALIGN_NORMAL)
                 .setLineSpacing(1, 0)
@@ -76,7 +77,7 @@ public class TextViewer extends View implements Observer {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        int width;
+
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
         int widthRequirement = MeasureSpec.getSize(widthMeasureSpec);
         if (widthMode == MeasureSpec.EXACTLY) {
@@ -108,7 +109,6 @@ public class TextViewer extends View implements Observer {
 
     public void setText(TextModel textModel) {
         String text = textModel.getContent();
-        int width = (int) mTextPaint.measureText(text);
         mStaticLayout = new StaticLayout(text, mTextPaint, width, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0, false);
     }
 
@@ -171,8 +171,9 @@ public class TextViewer extends View implements Observer {
 
     @Override
     public void update(TextModel model) {
+        setFormating(model);
         setText(model);
         setTextSize(model);
-        setFormating(model);
+        invalidate();
     }
 }

@@ -7,13 +7,13 @@ public class TextModel implements Observable {
     private String content;
     private boolean bold, italic;
     private int textSize;
-    ArrayList<Observer> observers = new ArrayList<>();
+    private ArrayList<Observer> observers = new ArrayList<>();
 
-    public TextModel(){
+    public TextModel() {
 
     }
 
-    public void initialize(){
+    public void initialize() {
         content = "%s";
         bold = false;
         italic = false;
@@ -21,41 +21,41 @@ public class TextModel implements Observable {
         update();
     }
 
-    public void setTextSize(int size){
-        if(size > 0){
+    public void setTextSize(int size) {
+        if (size > 0) {
             textSize = size;
             update();
         }
     }
 
-    public int getTextSize(){
+    public int getTextSize() {
         return textSize;
     }
 
-    public void setBold(){
+    public void setBold() {
         bold = !bold;
         update();
     }
 
-    public void setItalic(){
+    public void setItalic() {
         italic = !italic;
         update();
     }
 
-    public boolean isBold(){
+    public boolean isBold() {
         return bold;
     }
 
-    public boolean isItalic(){
+    public boolean isItalic() {
         return italic;
     }
 
-    public void setContent(String s){
+    public void setContent(String s) {
         content = s;
         update();
     }
 
-    public String getContent(){
+    public String getContent() {
         return content;
     }
 
@@ -71,7 +71,7 @@ public class TextModel implements Observable {
 
     @Override
     public void update() {
-        for(Observer obs : observers){
+        for (Observer obs : observers) {
             obs.update(this);
         }
     }
