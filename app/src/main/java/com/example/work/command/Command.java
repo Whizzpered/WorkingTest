@@ -4,8 +4,7 @@ import com.example.work.TextModel;
 
 public interface Command {
 
-    void setTextModel(TextModel target);
-    void execute();
-    void undo();
+    void execute(TextModel target);
+    void undo(TextModel target);
 
 }

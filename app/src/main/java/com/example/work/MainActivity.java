@@ -26,7 +26,6 @@ public class MainActivity extends Activity {
         CommandController.getInstance().addObserverToModel(textViewer);
         CommandController.getInstance().addObserverToModel(vs);
 
-        textModel.initialize();
         textModel.setContent(getString(R.string.rus_text));
     }
 }

@@ -19,12 +19,11 @@ public class CommandController {
 
     public void addCommand(Command newCommand){
         stack.addLast(newCommand);
-        newCommand.setTextModel(textModel);
-        newCommand.execute();
+        newCommand.execute(textModel);
     }
 
     public void undo(){
-        stack.pollLast().undo();
+        stack.pollLast().undo(textModel);
     }
 
     public static CommandController getInstance(){
@@ -33,6 +32,7 @@ public class CommandController {
 
     public void addObserverToModel(Observer obs){
         textModel.addObserver(obs);
+        textModel.update();
     }
 
     public void removeObserverFromModel(Observer obs){

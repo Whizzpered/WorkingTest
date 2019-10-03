@@ -10,15 +10,10 @@ public class TextModel implements Observable {
     private ArrayList<Observer> observers = new ArrayList<>();
 
     public TextModel() {
-
-    }
-
-    public void initialize() {
         content = "%s";
         bold = false;
         italic = false;
         textSize = 20;
-        update();
     }
 
     public void setTextSize(int size) {
