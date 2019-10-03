@@ -32,7 +32,7 @@ public class CommandController {
 
     public void addObserverToModel(Observer obs){
         textModel.addObserver(obs);
-        textModel.update();
+        obs.update(textModel);
     }
 
     public void removeObserverFromModel(Observer obs){
