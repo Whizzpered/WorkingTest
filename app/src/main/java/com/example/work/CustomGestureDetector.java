@@ -3,7 +3,7 @@ package com.example.work;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 
-import com.example.work.TextViewer;
+import com.example.work.view.TextViewer;
 
 public class CustomGestureDetector extends GestureDetector.SimpleOnGestureListener {
 

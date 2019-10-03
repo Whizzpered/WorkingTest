@@ -69,7 +69,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <com.example.work.TextViewer
+    <com.example.work.view.TextViewer
         android:id="@+id/textviewer"
         android:layout_width="wrap_content"
         android:layout_height="0dp"

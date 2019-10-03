@@ -1,4 +1,4 @@
-package com.example.work;
+package com.example.work.view;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -16,6 +16,12 @@ import android.widget.OverScroller;
 
 import androidx.annotation.RequiresApi;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
+
+import com.example.work.CommandController;
+import com.example.work.CustomGestureDetector;
+import com.example.work.Observer;
+import com.example.work.R;
+import com.example.work.TextModel;
 
 public class TextViewer extends View implements Observer {
 
@@ -35,6 +41,7 @@ public class TextViewer extends View implements Observer {
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.TextViewer);
         attributes.recycle();
         initLabelView();
+        CommandController.getInstance().addObserverToModel(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -151,14 +158,12 @@ public class TextViewer extends View implements Observer {
     public void setTypeface(Typeface typeface) {
         mStaticLayout.getPaint().setTypeface(typeface);
         mTextPaint.setTypeface(typeface);
-        invalidate();
     }
 
     public void setTextSize(TextModel textModel) {
         int size = textModel.getTextSize();
         mTextPaint.setTextSize(size * getResources().getDisplayMetrics().density);
         mStaticLayout.getPaint().setTextSize(size * getResources().getDisplayMetrics().density);
-        invalidate();
     }
 
     public StaticLayout getStaticLayout() {
