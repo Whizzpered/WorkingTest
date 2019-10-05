@@ -3,23 +3,30 @@ package com.example.work.button;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.util.AttributeSet;
+import android.view.View;
 
 import androidx.appcompat.widget.AppCompatImageButton;
 
-import com.example.work.CommandController;
 import com.example.work.Observer;
 import com.example.work.R;
 import com.example.work.TextModel;
 
 public class CustomButton extends AppCompatImageButton implements Observer {
 
-    CommandController commandController;
 
     public CustomButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setOnClickListener(new CustomOnClickListener());
-        commandController = CommandController.getInstance();
-        commandController.addObserverToModel(this);
+        setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pressed();
+            }
+        });
+    }
+
+    public void pressed() {
+        ButtonGroup bg = (ButtonGroup)getParent();
+        bg.getFactory().createCommand(getId());
     }
 
     @Override

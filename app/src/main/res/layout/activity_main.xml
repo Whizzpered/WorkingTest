@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.example.work.button.ButtonGroup
         android:id="@+id/groupButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,7 +67,7 @@
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.example.work.button.ButtonGroup>
 
     <com.example.work.view.TextViewer
         android:id="@+id/textviewer"

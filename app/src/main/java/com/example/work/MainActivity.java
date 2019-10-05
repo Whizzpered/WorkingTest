@@ -5,16 +5,19 @@ import android.os.Bundle;
 
 public class MainActivity extends Activity {
 
-    private TextModel textModel;
+    ObjectsHandler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        textModel = new TextModel();
-        CommandController.getInstance().setTextModel(textModel);
+        handler = new ObjectsHandler();
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textModel.setContent(getString(R.string.rus_text));
+        handler.getTextModel().setContent(getString(R.string.rus_text));
+    }
+
+    public ObjectsHandler getHandler(){
+        return handler;
     }
 }

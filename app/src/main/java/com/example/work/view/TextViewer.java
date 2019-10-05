@@ -17,9 +17,10 @@ import android.widget.OverScroller;
 import androidx.annotation.RequiresApi;
 import androidx.interpolator.view.animation.FastOutLinearInInterpolator;
 
-import com.example.work.CommandController;
 import com.example.work.CustomGestureDetector;
+import com.example.work.MainActivity;
 import com.example.work.Observer;
+import com.example.work.ObserverController;
 import com.example.work.R;
 import com.example.work.TextModel;
 
@@ -41,13 +42,20 @@ public class TextViewer extends View implements Observer {
         TypedArray attributes = context.obtainStyledAttributes(attrs, R.styleable.TextViewer);
         attributes.recycle();
         initLabelView();
-        CommandController.getInstance().addObserverToModel(this);
+
+        MainActivity activity = (MainActivity) context;
+        ObserverController observerController = activity.getHandler().getObserverController();
+        observerController.addObserverToModel(this);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     public TextViewer(Context context) {
         super(context);
         newInit();
+
+        MainActivity activity = (MainActivity) context;
+        ObserverController observerController = activity.getHandler().getObserverController();
+        observerController.addObserverToModel(this);
     }
 
     private void initLabelView() {
