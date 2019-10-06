@@ -4,5 +4,5 @@ Application is displaying the text with needed options which you can change with
 their size.
 
 During development, the MVC pattern was adapted.
-Implemented next patterns: Observer, Command, Singleton.
+Implemented next patterns: Observer, Command.
 Main component is based on full custom view.
