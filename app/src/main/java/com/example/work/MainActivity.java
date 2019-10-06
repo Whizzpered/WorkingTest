@@ -3,7 +3,7 @@ package com.example.work;
 import android.app.Activity;
 import android.os.Bundle;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements Handler{
 
     ObjectsHandler handler;
 
@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
         handler.getTextModel().setContent(getString(R.string.rus_text));
     }
 
+    @Override
     public ObjectsHandler getHandler(){
         return handler;
     }

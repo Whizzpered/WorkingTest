@@ -7,8 +7,7 @@ import android.view.View;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.work.CommandFactory;
-import com.example.work.MainActivity;
-import com.example.work.ObjectsHandler;
+import com.example.work.Handler;
 import com.example.work.Observer;
 import com.example.work.ObserverController;
 
@@ -19,9 +18,11 @@ public class ButtonGroup extends ConstraintLayout {
 
     public ButtonGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
-        MainActivity activity = (MainActivity) context;
-        factory = activity.getHandler().getCommandFactory();
-        controller = activity.getHandler().getObserverController();
+        if(context instanceof Handler) {
+            Handler activity = (Handler) context;
+            factory = activity.getHandler().getCommandFactory();
+            controller = activity.getHandler().getObserverController();
+        }
     }
 
 
